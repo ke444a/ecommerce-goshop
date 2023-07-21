@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .scrollbar-hidden::-webkit-scrollbar {
+        @apply hidden;
+    }
+
+    .container {
+        @apply w-full max-w-[90%] xs:px-6 md:px-12 lg:px-24
+    }
+}
+
+@layer base {
+    body {
+        @apply bg-main-gray text-dark;
+    }
+}

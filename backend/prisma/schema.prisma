@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  firebaseId String  @unique
+  email      String  @db.VarChar(255) @unique
+  fullName   String
+  role       Role    @default(USER)
+  avatar     String?
+  Order      Order[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Product {
+  id  String  @unique
+  name          String
+  description   String @db.Text
+  price         Float
+  stockQuantity Int
+  image         String
+  category    Category? @relation(fields: [categoryId], references: [id], onUpdate: Cascade)
+  categoryId  Int?
+  priceId String  @unique
+  createdAt DateTime @default(now())
+  @@fulltext([name, description])
+}
+
+model Category {
+  id        Int    @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Order {
+  id     Int     @id @default(autoincrement())
+  amount Float
+  userId String
+  user   User    @relation(fields: [userId], references: [firebaseId])
+  items Json
+  country String
+  address String
+  sessionId String @unique
+  createdAt DateTime @default(now())
+}
