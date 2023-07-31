@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import sharp from "sharp";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
@@ -11,7 +11,7 @@ export interface ImageRequest extends IAuthRequest {
 
 export const processProductImageUpload = async (req: ImageRequest, res: Response, next: NextFunction) => {
     if (req?.file) {
-        const FILE_PATH = path.resolve(__dirname, "../../uploads/products") + req.file.filename;
+        const FILE_PATH = path.resolve(__dirname, "../../uploads/products/") + req.file.originalname;
         await sharp(req.file?.buffer)
             .jpeg({ quality: 70 })
             .toFile(FILE_PATH);
@@ -34,7 +34,7 @@ export const processProductImageUpload = async (req: ImageRequest, res: Response
 
 export const processUserImageUpload = async (req: ImageRequest, res: Response, next: NextFunction) => {
     if (req?.file) {
-        const FILE_PATH = path.resolve(__dirname, "../../uploads/users") + req.file.filename;
+        const FILE_PATH = path.resolve(__dirname, "../../uploads/users") + req.file.originalname;
         await sharp(req.file?.buffer)
             .jpeg({ quality: 70 })
             .toFile(FILE_PATH);

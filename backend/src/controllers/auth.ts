@@ -10,19 +10,18 @@ export const register = async (req: Request, res: Response) => {
             displayName: req.body.fullName
         });
 
+        const role = req.body.isAdmin ? "ADMIN" : "USER";
         await prisma.user.create({
             data: {
                 firebaseId: userFirebase.uid,
                 email: req.body.email,
-                fullName: req.body.fullName
+                fullName: req.body.fullName,
+                role
             }
         });
 
         const token = await auth.createCustomToken(userFirebase.uid);
-        const roleClaim = {
-            role: "USER"
-        };
-        await auth.setCustomUserClaims(userFirebase.uid, roleClaim);
+        await auth.setCustomUserClaims(userFirebase.uid, { role });
     
         res.status(200).json({ token });
     } catch (error) {

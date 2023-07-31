@@ -9,6 +9,5 @@ export const useGetAllProductsQuery = () => {
     return useQuery({
         queryKey: ["products", "all"],
         queryFn: getAllProducts,
-        refetchOnWindowFocus: false
     });
 };

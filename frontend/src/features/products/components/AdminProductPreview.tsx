@@ -5,14 +5,9 @@ import { Link } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
 import EditProductPopup from "./EditProductPopup";
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "../../../app/store";
-// import { removeFavorite } from "../favoritesSlice";
-// import { removeFromCart } from "../../cart/cartSlice";
 
 export const AdminProductPreview = (props: IProduct) => {
     const { token } = useAuth();
-    // const dispatch = useDispatch<AppDispatch>();
     const [isShowEditProduct, setIsShowEditProduct] = useState(false);
     const deleteMutation = useDeleteProductMutation(token);
 
@@ -41,6 +36,7 @@ export const AdminProductPreview = (props: IProduct) => {
                 <h5 className="font-semibold mb-2">${props.price}</h5>
                 <div className="flex flex-row items-center space-x-2 xs:space-x-0 xs:items-start xs:space-y-2 xs:flex-col">
                     <button
+                        id="editProductButton"
                         className="flex items-center w-auto xs:w-full border border-gray-200 rounded-md p-2 px-1 xs:px-4 hover:bg-main-gray transition-colors"
                         onClick={handleEditButtonClick}
                     >
@@ -48,6 +44,7 @@ export const AdminProductPreview = (props: IProduct) => {
                         <span className="hidden xs:inline font-semibold">Edit</span>
                     </button>
                     <button
+                        id="deleteProductButton"
                         className="flex items-center w-auto xs:w-full border border-gray-200 rounded-md p-2 px-1 xs:px-4 hover:bg-main-gray transition-colors text-red-500"
                         onClick={handleDeleteButtonClick}
                     >

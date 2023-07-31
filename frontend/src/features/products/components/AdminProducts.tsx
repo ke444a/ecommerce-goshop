@@ -18,6 +18,7 @@ export const AdminProducts = () => {
                 <div className="flex items-center justify-between mb-8">
                     <h3 className="font-semibold text-xl mr-4 sm:mr-0 sm:text-3xl">Manage Products</h3>
                     <button
+                        id="create-product"
                         onClick={handleCreateProduct}
                         className="flex items-center bg-primary text-white text-sm p-2 xs:px-6 xs:py-3 rounded-md transition hover:bg-opacity-90"
                     >

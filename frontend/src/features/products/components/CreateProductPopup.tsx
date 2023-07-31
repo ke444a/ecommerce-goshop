@@ -13,9 +13,7 @@ const CreateProductPopup = (props: Props) => {
     const { token } = useAuth();
     const { mutate: createProduct } = useCreateProductMutation(token);
 
-    const handleCloseCreateProduct = () => {
-        props.setIsShowCreateProduct(false);
-    };
+    const handleCloseCreateProduct = () => props.setIsShowCreateProduct(false);
 
     const onFormSubmit = (data: ProductFormType, preview: string) => {
         const product = {

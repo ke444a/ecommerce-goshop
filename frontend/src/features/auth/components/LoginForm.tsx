@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const loginValidationSchema = yup.object({
     email: yup
@@ -34,7 +35,7 @@ const LoginForm = () => {
                 navigate("/");
             }
         } catch (error) {
-            console.log(error);
+            toast.error("Invalid email or password");
         }
     };
     

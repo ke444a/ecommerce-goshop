@@ -13,6 +13,7 @@ export const SearchBox = (props: Props) => {
                 <FiSearch className="w-6 h-6 text-secondary" />
             </div>
             <input 
+                id="search"
                 type="text"
                 placeholder="Search for products..."
                 className="w-full md:w-64 xl:w-80 px-4 py-3 pl-10 rounded-lg bg-gray-200 border focus:border-primary focus:bg-white focus:outline-none" 

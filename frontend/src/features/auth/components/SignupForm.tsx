@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../../context/AuthContext";
-import { updateProfile } from "firebase/auth";
 
 const registerValidationSchema = yup.object({
     email: yup.string().email("Please enter a valid email address").required("Email is required"),
@@ -15,8 +14,9 @@ const registerValidationSchema = yup.object({
     password2: yup.string()
         .oneOf([yup.ref("password")], "Passwords do not match")
         .required("Password confirmation is required"),
-    firstName: yup.string().required().trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets"),
-    lastName: yup.string().required().trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets")
+    firstName: yup.string().required("First name is required").trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets"),
+    lastName: yup.string().required("Last name is required").trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets"),
+    isAdmin: yup.boolean()
 });
 type SignupForm = yup.InferType<typeof registerValidationSchema>;
 
@@ -32,42 +32,21 @@ const SignupForm = () => {
         const credentials = {
             email: data.email.trim(),
             password: data.password,
-            fullName: `${data.firstName.trim()} ${data.lastName.trim()}`
+            fullName: `${data.firstName.trim()} ${data.lastName.trim()}`,
+            isAdmin: data.isAdmin
         };
         
-        try {
-            const userCredentials = await signUp(credentials);
-            navigate("/");
-            // if (userCredentials) {
-            //     const user = userCredentials.user;
-                
-            //     try {
-            //         await updateProfile(user, {
-            //             displayName: fullName
-            //         });
-
-            //         createUserOnBackend({
-            //             email,
-            //             fullName,
-            //             firebaseId: user.uid,
-            //         });
-            //         navigate("/");
-            //     } catch (error) {
-            //         if (userCredentials) {
-            //             const user = userCredentials.user;
-            //             user.delete();
-            //             deleteUserOnBackend(user.uid);
-            //         }
-            //     }
-            // }
-        } catch (error) {
-            console.log(error);
-        }
+        await signUp(credentials);
+        navigate("/");
     };
 
     return (
         <>
-            <form className="w-full" onSubmit={handleSubmit(handleRegister)}>
+            <form
+                noValidate
+                className="w-full"
+                onSubmit={handleSubmit(handleRegister)}
+            >
                 <div className="flex flex-col mb-3">
                     <label htmlFor="email" className="text-secondary">
               Email Address
@@ -155,6 +134,10 @@ const SignupForm = () => {
                         }
                     </div>
                 </div>
+                <input {...register("isAdmin")} type="checkbox" id="isAdmin" className="mr-2" />
+                <label htmlFor="isAdmin" className="text-secondary">
+            Signup as admin
+                </label>
                 <button className="w-full font-semibold text-sm bg-dark text-white transition hover:bg-opacity-90 rounded-xl py-3 px-4">
             Sign up
                 </button>

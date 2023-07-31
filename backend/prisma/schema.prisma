@@ -33,6 +33,7 @@ model Product {
   categoryId  Int?
   priceId String  @unique
   createdAt DateTime @default(now())
+  @@fulltext([name])
   @@fulltext([name, description])
 }
 

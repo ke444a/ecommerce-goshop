@@ -13,7 +13,7 @@ const Auth = () => {
                     <h3 className="font-semibold text-2xl xs:text-3xl mb-6">
                         {isLogin ? "Sign in to your account" : "Create new account"}
                     </h3>
-                    {isLogin ? <LoginForm /> : <SignupForm></SignupForm>}
+                    {isLogin ? <LoginForm /> : <SignupForm />}
                 </div>
             </div>
         </div>

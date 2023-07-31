@@ -21,19 +21,15 @@ const ProductsDashboard = (props: Props) => {
 
     const { mutate, data: searchResults } = useSearchProductMutation();
     const debouncedSearch = useDebounce(() => {
-        setSelectedCategory(0);
         mutate(searchQuery);
     }, 500);
 
     const handleSearchQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSelectedCategory(0);
         setSearchQuery(event.target.value);
         debouncedSearch();
     };
 
-    const handleSelectCategory = (event: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCategory(Number(event.target.value));
-    };
+    const handleSelectCategory = (event: ChangeEvent<HTMLSelectElement>) => setSelectedCategory(Number(event.target.value));
 
     return (
         <>
@@ -89,7 +85,13 @@ const ProductsGrid = (props: ProductsGridProps) => {
         }
 
         if (props.selectedCategory && props.selectedCategory !== 0 && filteredProductsQuery.data) {
-            products = [...filteredProductsQuery.data];
+            if (props.searchResults && props.searchQuery !== "") {
+                products = products.filter((product: IProduct) => {
+                    return filteredProductsQuery.data?.some((filteredProduct: IProduct) => filteredProduct.id === product.id);
+                });
+            } else {
+                products = [...filteredProductsQuery.data];
+            }
         }
 
         if (props.sortOption === "PRICE_ASC") {
@@ -110,7 +112,7 @@ const ProductsGrid = (props: ProductsGridProps) => {
     }
 
     return (
-        <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${props.isAdmin && "py-8 border-gray-500 border-t border-b"}`}>
+        <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${props.isAdmin ? "py-8 border-gray-500 border-t border-b" : ""}`}>
             {productsComponent}
         </div>
     );

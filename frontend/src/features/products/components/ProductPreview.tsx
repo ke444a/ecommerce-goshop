@@ -18,7 +18,11 @@ export const ProductPreview = (props: IProduct) => {
     };
 
     return (
-        <div className="animate-fadeIn relative rounded-xl drop-shadow-custom bg-white mb-8 group">
+        <div 
+            className="animate-fadeIn relative rounded-xl drop-shadow-custom bg-white mb-8 group"
+            data-category={`${props.categoryId}`}
+            data-created-at={`${props.createdAt}`}
+        >
             <Link
                 to={`/products/${props.id}`}
                 className="transition-opacity hover:opacity-90"
@@ -30,7 +34,7 @@ export const ProductPreview = (props: IProduct) => {
                 />
             </Link>
             <button
-                className="absolute top-2 right-3 bg-white p-1 rounded-md text-red-500 hidden group-hover:block"
+                className="absolute top-2 right-3 bg-white p-1 rounded-full drop-shadow-custom hidden group-hover:block"
                 onClick={handleFavoriteChange}
             >
                 {isFavorite ? (

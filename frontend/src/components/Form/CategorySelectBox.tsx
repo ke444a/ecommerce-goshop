@@ -58,6 +58,7 @@ export const CategorySelectBox = (props: Props) => {
     return (
         <div className="relative w-full sm:w-32 xl:w-48">
             <select
+                id="category"
                 className="cursor-pointer outline-none appearance-none w-full border-[1px] border-gray-400 py-3 px-4 rounded-md bg-white text-secondary text-sm"
                 value={props.selectedCategory || -1}
                 onChange={props.handleSelectCategory}

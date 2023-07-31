@@ -70,7 +70,7 @@ const UserForm = () => {
                 <input
                     {...register("email")}
                     type="email"
-                    id="name"
+                    id="email"
                     placeholder="Enter Email Address"
                     className="px-4 py-3 rounded-lg bg-gray-200 mt-1 border focus:border-primary focus:bg-white focus:outline-none"
                 />

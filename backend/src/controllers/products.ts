@@ -41,23 +41,34 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const searchForProducts = async (req: Request, res: Response) => {
     try {
+        let { searchQuery } = req.body;
+        if (searchQuery.length > 0 && searchQuery.indexOf(" ") === -1) {
+            searchQuery = `${searchQuery}*`;
+        }
         const products = await prisma.product.findMany({
             where: {
                 name: {
-                    contains: req.body.searchQuery
+                    search: searchQuery
                 },
                 description: {
-                    contains: req.body.searchQuery
+                    search: searchQuery
+                }
+            },
+            orderBy: {
+                _relevance: {
+                    fields: ["name"],
+                    search: "database",
+                    sort: "asc"
                 }
             }
         });
-
         if (!products) {
             throw new Error("Product not found");
         }
     
         res.status(200).json(products);
     } catch (error) {
+        console.log(error);
         res.status(404).json(error);
     }
 };
@@ -95,16 +106,6 @@ export const createProduct = async (req: ImageRequest, res: Response) => {
             },
             images: [image]
         });
-
-        const newCategory = await prisma.category.upsert({
-            where: {
-                name: req.body.category
-            },
-            update: {},
-            create: {
-                name: req.body.category
-            }
-        });
     
         const newProduct = await prisma.product.create({
             data: {
@@ -115,7 +116,16 @@ export const createProduct = async (req: ImageRequest, res: Response) => {
                 image,
                 name: req.body.name,
                 description: req.body.description,
-                categoryId: newCategory.id
+                category: {
+                    connectOrCreate: {
+                        where: {
+                            name: req.body.category
+                        },
+                        create: {
+                            name: req.body.category
+                        }
+                    }
+                }
             }
         });
     
@@ -177,7 +187,16 @@ export const updateProduct = async (req: ImageRequest, res: Response) => {
                 image,
                 name: req.body.name,
                 description: req.body.description,
-                categoryId: updatedCategory.id
+                category: {
+                    connectOrCreate: {
+                        where: {
+                            name: req.body.category
+                        },
+                        create: {
+                            name: req.body.category
+                        }
+                    }
+                }
             }
         });
     

@@ -18,6 +18,7 @@ export const SortSelectBox = (props: Props) => {
     return (
         <div className="relative w-full sm:w-32 xl:w-48">
             <select
+                id="sorting"
                 className="cursor-pointer outline-none appearance-none w-full border-[1px] border-gray-400 py-3 px-4 rounded-md bg-white pr-8 sm:pr-14 text-secondary text-sm"
                 value={props.sortOption}
                 onChange={(event: ChangeEvent<HTMLSelectElement>) =>

@@ -12,7 +12,7 @@ const CheckoutProductView = (props: Partial<IProduct>) => {
             </Link>
             <div className="flex flex-col h-full">
                 <h5 className="font-semibold text-xl mb-1">{props.name}</h5>
-                <p className="text-secondary mb-1">{props.category}</p>
+                {/* <p className="text-secondary mb-1">{props.category}</p> */}
                 <h5 className="font-semibold text-xl mb-1">${props.price}</h5>
             </div>
         </div>
