@@ -49,7 +49,7 @@ export const updateUser = async (req: ImageRequest, res: Response) => {
                 }
             });
             if (existingUser) {
-                throw new Error("User with given email already exists");
+                return res.status(400).json({ message: "User with given email already exists"});
             }
         }
     
@@ -72,7 +72,6 @@ export const updateUser = async (req: ImageRequest, res: Response) => {
 
         res.status(200).json({ user: updatedUser, token });
     } catch (error) {
-        console.log(error);
         res.status(400).json(error);
     }
 };

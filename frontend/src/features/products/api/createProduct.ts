@@ -2,6 +2,7 @@ import { api } from "../../../app/api";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { convertToFormData } from "../../../utils/convertToFormData";
 import { v4 as uuid } from "uuid";
+import { toast } from "react-toastify";
 
 const createProduct = (product: Partial<IProduct> & { imagePath: string }, token: string): Promise<IProduct> => {
     const { imagePath, ...productData } = product;
@@ -33,7 +34,6 @@ export const useCreateProductMutation = (token: string) => {
                         createdAt: new Date(),
                         categoryId: 1
                     };
-                    console.log(newProduct);
                     productsCopy?.unshift(newProduct as IProduct);
                     return productsCopy;
                 });                

@@ -111,7 +111,10 @@ const ProductForm = (props: Props) => {
                         className="px-4 py-3 rounded-lg mt-1 border border-gray-200 focus:border-primary focus:outline-none placeholder:text-sm"
                     />
                 </div>
-                <button className="px-4 py-2 text-sm block rounded-lg bg-primary text-white mt-3 hover:bg-primary-hover transition-colors focus:outline-none hover:bg-opacity-90">
+                <button 
+                    id="submitProductForm"
+                    className="px-4 py-2 text-sm block rounded-lg bg-primary text-white mt-3 hover:bg-primary-hover transition-colors focus:outline-none hover:bg-opacity-90"
+                >
                     {props.product ? "Edit" : "Add"} product
                 </button>
             </form>

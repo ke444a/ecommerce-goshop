@@ -53,12 +53,14 @@ const Navbar = () => {
 
                         {dropdownOpen && (
                             <div className="z-10 transform animate-dropdown origin-top-right absolute mb-10 mt-4 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                {currentUser &&
                                 <div className="px-4 py-3 text-sm text-dark">
                                     <div>{currentUser?.displayName}</div>
                                     <div className="font-medium truncate">
                                         {currentUser?.email}
                                     </div>
                                 </div>
+                                }
                                 <ul className="py-2 text-sm text-dark-200">
                                     <li>
                                         <Link

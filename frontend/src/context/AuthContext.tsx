@@ -70,6 +70,7 @@ export const AuthProvider = ({ children } : Props) => {
 
     const signUp = async (data: IRegisterCredentials) => {
         const { token } = await register(data);
+        console.log(token);
         return await signInWithToken(token);
     };
 

@@ -3,12 +3,12 @@ import { selectCartItems } from "../cartSlice";
 import { ProductQuantitySelectBox } from "../../../components/Form";
 import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
+import { BsCartX } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 import { ChangeEvent } from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { addToCart, removeFromCart } from "../cartSlice";
-import { useMemo } from "react";
 
 type Props = {
     context?: "cart" | "checkout";
@@ -16,15 +16,21 @@ type Props = {
 
 const CartProductsList = (props: Props) => {
     const cartItems = useSelector(selectCartItems);
-    const cartItemsView = useMemo(() => {
-        return cartItems.map((cartItem) => (
-            <CartProductView key={cartItem.product.id} {...cartItem} {...props} />
-        ));
-    }, [cartItems]);
 
     return (
-        <div className={`flex flex-col space-y-5 w-full ${props.context === "cart" ? "mr-0 md:mr-5" : "max-h-[400px]"} overflow-y-auto`}>
-            {cartItemsView}
+        <div
+            className={`flex flex-col space-y-5 w-full ${
+                props.context === "cart" ? "mr-0 md:mr-5" : "max-h-[400px]"
+            } overflow-y-auto`}
+        >
+            {cartItems.length > 0 ? cartItems.map((cartItem) => (
+                <CartProductView key={cartItem.product.id} {...cartItem} {...props} />
+            )) : (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                    <BsCartX className="w-16 h-16" />
+                    <h4 className="font-semibold text-xl mt-2">The cart is empty</h4>
+                </div>
+            )}
         </div>
     );
 };

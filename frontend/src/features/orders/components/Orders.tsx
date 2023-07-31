@@ -3,6 +3,7 @@ import { useGetAllOrdersDetailedQuery } from "../api/getAllOrdersDetailed";
 import { useAuth } from "../../../context/AuthContext";
 import { useGetOrdersDetailedByUserQuery } from "../api/getOrdersDetailedByUser";
 import { OrderPreview } from "./OrderPreview";
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 
 export const Orders = () => {
     const { token, isAdmin, currentUser } = useAuth();
@@ -14,21 +15,37 @@ export const Orders = () => {
             return null;
         }
 
-        if (ordersUser) {
+        if (ordersUser && ordersUser?.length > 0) {
             return ordersUser.map((order) => (
                 <OrderPreview key={order.id} {...order} />
             ));
-        } else if (ordersAdmin) {
+        } else if (ordersAdmin && ordersAdmin?.length > 0) {
             return ordersAdmin.map((order) => (
                 <OrderPreview key={order.id} {...order} />
             ));
         }
+        return ;
 
     }, [ordersAdmin, ordersUser]);
 
+    if ((ordersAdmin && ordersAdmin.length > 0) || (ordersUser && ordersUser.length > 0)) {
+        return (
+            <div className="mt-4 p-5 bg-white drop-shadow-custom rounded-md h-full">
+                <h3 className="font-semibold text-xl sm:text-3xl">
+          Manage Orders
+                </h3>
+                {ordersComponent}
+            </div>
+        );
+    }
+
     return (
         <>
-            {ordersComponent}
+            <h3 className="font-semibold text-xl sm:text-3xl mt-4 p-5">Manage Orders</h3>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                <MdOutlineRemoveShoppingCart className="w-16 h-16" />
+                <h4 className="text-xl font-semibold mt-2">No orders yet...</h4>
+            </div>
         </>
     );
 };

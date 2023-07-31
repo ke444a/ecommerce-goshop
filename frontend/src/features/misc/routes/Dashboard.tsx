@@ -5,7 +5,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { AdminProducts } from "../../products/components/AdminProducts";
 import Profile from "../../users/components/Profile";
 import { useAuth } from "../../../context/AuthContext";
-import { Orders } from "../../orders/components/AdminOrders";
+import { Orders } from "../../orders/components/Orders";
 import { useLocation } from "react-router-dom";
 
 export const Dashboard = () => {
