@@ -30,16 +30,51 @@ describe("User: shopping", () => {
         });
     });
 
-    // it("Shopping: sorting by newest", () => {
-    // });
+    it("Shopping: sorting by newest", () => {
+        const initialOrder = [];
+        cy.get(".grid").children().each($el => {
+            initialOrder.push($el.attr("data-created-at"));
+        }).then(() => {
+            const sortedOrderByDate = initialOrder.sort((a, b) => a - b);
+ 
+            cy.get(userSel.sortField).select("Newest");
+            cy.wait(400);
 
-    // it("Shopping: sorting by price from high to low", () => {
+            cy.get(".grid").children().each(($el, index) => {
+                cy.wrap($el).invoke("attr", "data-created-at").should("equal", sortedOrderByDate[index]);
+            }); 
+        });
+    });
 
-    // });
+    it("Shopping: sorting by price from high to low", () => {
+        const initialOrder: number[] = [];
+        cy.get(".grid").children().each($el => {
+            initialOrder.push(Number($el.attr("data-price")));
+        }).then(() => {
+            const sortedOrderByPrice = initialOrder.sort((a, b) => b - a);
+            cy.get(userSel.sortField).select("Price: High to low");
+            cy.wait(400);
+
+            cy.get(".grid").children().each(($el, index) => {
+                cy.wrap($el).invoke("attr", "data-price").should("equal", sortedOrderByPrice[index].toString());
+            }); 
+        });
+    });
     
-    // it("Shopping: sorting by price from low to high", () => {
-        
-    // });
+    it("Shopping: sorting by price from low to high", () => {
+        const initialOrder: number[] = [];
+        cy.get(".grid").children().each($el => {
+            initialOrder.push(Number($el.attr("data-price")));
+        }).then(() => {
+            const sortedOrderByPrice = initialOrder.sort((a, b) => a - b);
+            cy.get(userSel.sortField).select("Price: Low to high");
+            cy.wait(400);
+
+            cy.get(".grid").children().each(($el, index) => {
+                cy.wrap($el).invoke("attr", "data-price").should("equal", sortedOrderByPrice[index].toString());
+            }); 
+        });
+    });
 });
 
 describe("User: profile", () => {

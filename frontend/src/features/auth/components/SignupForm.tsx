@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../../context/AuthContext";
+import { useRegisterWithGoogleMutation } from "../api/registerWithGoogle";
 
 const registerValidationSchema = yup.object({
     email: yup.string().email("Please enter a valid email address").required("Email is required"),
@@ -26,8 +27,9 @@ const SignupForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignupForm>({
         resolver: yupResolver<SignupForm>(registerValidationSchema),
     });
+    const { mutate: registerWithGoogle } = useRegisterWithGoogleMutation();
 
-    const { signUp, signInWithGoogle } = useAuth();
+    const { signUp, signInWithGoogle, currentUser } = useAuth();
     const handleRegister = async (data: SignupForm) => {
         const credentials = {
             email: data.email.trim(),
@@ -38,6 +40,19 @@ const SignupForm = () => {
         
         await signUp(credentials);
         navigate("/");
+    };
+
+    const handleGoogleLogin = async () => {
+        const userCredentials = await signInWithGoogle();
+        if (userCredentials) {
+            const credentials = {
+                email: userCredentials.user.email || "",
+                fullName: userCredentials.user.displayName || "",
+                firebaseId: userCredentials.user.uid || "",
+            };
+            registerWithGoogle(credentials);
+            navigate("/");
+        }
     };
 
     return (
@@ -144,7 +159,7 @@ const SignupForm = () => {
             </form>
             <hr className="my-6 border-gray-300 w-full" />
             <button
-                onClick={signInWithGoogle}
+                onClick={handleGoogleLogin}
                 className="flex w-full items-center justify-center font-semibold text-sm bg-gray-100 text-dark transition-colors hover:bg-gray-200 rounded-xl py-3 px-4 mb-4"
             >
                 <FcGoogle className="mr-2 w-6 h-6" />

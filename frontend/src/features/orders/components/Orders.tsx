@@ -31,7 +31,7 @@ export const Orders = () => {
     if ((ordersAdmin && ordersAdmin.length > 0) || (ordersUser && ordersUser.length > 0)) {
         return (
             <div className="mt-4 p-5 bg-white drop-shadow-custom rounded-md h-full">
-                <h3 className="font-semibold text-xl sm:text-3xl">
+                <h3 className="font-semibold text-xl sm:text-3xl mb-8">
           Manage Orders
                 </h3>
                 {ordersComponent}

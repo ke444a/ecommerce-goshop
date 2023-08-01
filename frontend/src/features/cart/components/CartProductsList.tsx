@@ -28,7 +28,7 @@ const CartProductsList = (props: Props) => {
             )) : (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
                     <BsCartX className="w-16 h-16" />
-                    <h4 className="font-semibold text-xl mt-2">The cart is empty</h4>
+                    <h4 className="font-semibold text-xl mt-2">The cart is currently empty</h4>
                 </div>
             )}
         </div>
