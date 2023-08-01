@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { auth, googleProvider } from "../app/firebase";
-import { User, signInWithEmailAndPassword, signInWithPopup, UserCredential, signInWithCustomToken } from "firebase/auth";
+import { User, signInWithEmailAndPassword, UserCredential, signInWithCustomToken, signInWithRedirect, getRedirectResult, signInWithPopup } from "firebase/auth";
 import { useRegisterMutation } from "../features/auth";
 
 interface Props {
@@ -13,7 +13,7 @@ interface IAuthContext {
   token: string;
   signIn: (email: string, password: string) => Promise<UserCredential> | null;
   signInWithToken: (token: string) => Promise<UserCredential> | null;
-  signInWithGoogle: () => void;
+  signInWithGoogle: () => Promise<UserCredential> | null;
   signUp: (data: IRegisterCredentials) => Promise<UserCredential> | null;
   signOut: () => void;
 }
@@ -25,7 +25,7 @@ const AuthContext = createContext<IAuthContext>({
     isAdmin: undefined,
     signIn: () => null,
     signInWithToken: () => null,
-    signInWithGoogle: () => undefined,
+    signInWithGoogle: () => null,
     signUp: () => null,
     signOut: () => undefined
 });
@@ -70,7 +70,6 @@ export const AuthProvider = ({ children } : Props) => {
 
     const signUp = async (data: IRegisterCredentials) => {
         const { token } = await register(data);
-        console.log(token);
         return await signInWithToken(token);
     };
 

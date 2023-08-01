@@ -28,3 +28,19 @@ export const register = async (req: Request, res: Response) => {
         res.status(400).json(error);
     }
 };
+
+export const registerWithGoogle = async (req: Request, res: Response) => {
+    try {
+        const user = await prisma.user.create({
+            data: {
+                firebaseId: req.body.firebaseId,
+                email: req.body.email,
+                fullName: req.body.fullName
+            }
+        });
+                
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+};

@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
+import { useRegisterWithGoogleMutation } from "../api/registerWithGoogle";
 
 const loginValidationSchema = yup.object({
     email: yup
@@ -36,6 +37,21 @@ const LoginForm = () => {
             }
         } catch (error) {
             toast.error("Invalid email or password");
+        }
+    };
+
+    const { mutate: registerWithGoogle } = useRegisterWithGoogleMutation();
+
+    const handleGoogleLogin = async () => {
+        const userCredentials = await signInWithGoogle();
+        if (userCredentials) {
+            const credentials = {
+                email: userCredentials.user.email || "",
+                fullName: userCredentials.user.displayName || "",
+                firebaseId: userCredentials.user.uid || ""
+            };
+            registerWithGoogle(credentials);
+            navigate("/");
         }
     };
     
@@ -92,7 +108,7 @@ const LoginForm = () => {
             <hr className="my-6 border-gray-300 w-full" />
             <button
                 className="flex w-full items-center justify-center font-semibold text-sm bg-gray-100 text-dark transition-colors hover:bg-gray-200 rounded-xl py-3 px-4 mb-4"
-                onClick={signInWithGoogle}
+                onClick={handleGoogleLogin}
             >
                 <FcGoogle className="mr-2 w-6 h-6" />
         Sign in with Google

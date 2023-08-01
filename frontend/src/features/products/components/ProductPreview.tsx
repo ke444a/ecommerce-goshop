@@ -22,6 +22,7 @@ export const ProductPreview = (props: IProduct) => {
             className="animate-fadeIn relative rounded-xl drop-shadow-custom bg-white mb-8 group"
             data-category={`${props.categoryId}`}
             data-created-at={`${props.createdAt}`}
+            data-price={`${props.price}`}
         >
             <Link
                 to={`/products/${props.id}`}
