@@ -6,6 +6,9 @@ import { useUpdateUserMutation } from "../api/updateUser";
 import { convertToFormData } from "../../../utils/convertToFormData";
 import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { FirebaseError } from "firebase/app";
+import { Spinner } from "../../../components/Elements/Spinner";
 
 const fieldRequiredError = "This field is required.";
 const userValidationSchema = yup.object({
@@ -19,6 +22,7 @@ export type UserFormType = yup.InferType<typeof userValidationSchema>;
 
 const UserForm = () => {
     const { currentUser, signInWithToken, token } = useAuth();
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const { register, handleSubmit, formState: { errors, isDirty }, control, setValue } = useForm<UserFormType>({
         resolver: yupResolver<UserFormType>(userValidationSchema),
@@ -31,28 +35,26 @@ const UserForm = () => {
     });
     const [preview, setPreview] = useState<string | ArrayBuffer | null | undefined>(currentUser?.photoURL);
 
-
     const { mutateAsync: updateUserOnBackend } = useUpdateUserMutation(currentUser?.uid || "", token);
     const onSubmit = async (data: UserFormType) => {
         if (isDirty) {
+            setIsUpdating(true);
             const fullName = `${data.firstName} ${data.lastName}`;
-            try {
-                const { token } = await updateUserOnBackend(convertToFormData({
-                    firebaseId: currentUser?.uid,
-                    email: data.email.trim(),
-                    fullName,
-                    avatar: data.image as Blob | string
-                }));
-                await signInWithToken(token);
-                currentUser?.reload();
-            } catch (error) {
-                console.log(error);
-            }
+            const { token } = await updateUserOnBackend(convertToFormData({
+                firebaseId: currentUser?.uid,
+                email: data.email.trim(),
+                fullName,
+                avatar: data.image as Blob | string
+            }));
+            await signInWithToken(token);
+            currentUser?.reload();
+            setIsUpdating(false);
         }
     };
 
     return (
-        <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col relative" onSubmit={handleSubmit(onSubmit)}>
+            {isUpdating && <Spinner />}
             <div className="mx-auto">
                 <PreviewImage
                     control={control}

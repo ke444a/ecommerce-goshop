@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../../context/AuthContext";
 import { useRegisterWithGoogleMutation } from "../api/registerWithGoogle";
+import { Spinner } from "../../../components/Elements/Spinner";
+import { useState } from "react";
 
 const registerValidationSchema = yup.object({
     email: yup.string().email("Please enter a valid email address").required("Email is required"),
@@ -23,14 +25,16 @@ type SignupForm = yup.InferType<typeof registerValidationSchema>;
 
 
 const SignupForm = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<SignupForm>({
         resolver: yupResolver<SignupForm>(registerValidationSchema),
     });
     const { mutate: registerWithGoogle } = useRegisterWithGoogleMutation();
 
-    const { signUp, signInWithGoogle, currentUser } = useAuth();
+    const { signUp, signInWithGoogle } = useAuth();
     const handleRegister = async (data: SignupForm) => {
+        setIsLoading(true);
         const credentials = {
             email: data.email.trim(),
             password: data.password,
@@ -40,6 +44,7 @@ const SignupForm = () => {
         
         await signUp(credentials);
         navigate("/");
+        setIsLoading(false);
     };
 
     const handleGoogleLogin = async () => {
@@ -59,9 +64,10 @@ const SignupForm = () => {
         <>
             <form
                 noValidate
-                className="w-full"
+                className="w-full relative"
                 onSubmit={handleSubmit(handleRegister)}
             >
+                {isLoading && <Spinner />}
                 <div className="flex flex-col mb-3">
                     <label htmlFor="email" className="text-secondary">
               Email Address
@@ -149,7 +155,12 @@ const SignupForm = () => {
                         }
                     </div>
                 </div>
-                <input {...register("isAdmin")} type="checkbox" id="isAdmin" className="mr-2" />
+                <input
+                    {...register("isAdmin")}
+                    type="checkbox"
+                    id="isAdmin"
+                    className="mr-2"
+                />
                 <label htmlFor="isAdmin" className="text-secondary">
             Signup as admin
                 </label>

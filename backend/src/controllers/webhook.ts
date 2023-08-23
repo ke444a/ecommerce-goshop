@@ -10,7 +10,6 @@ export const webhook = async (req: Request, res: Response) => {
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, process.env.ENDPOINT_SECRET || "");
     } catch (err) {
-        console.log(err);
         return res.status(400).json(err);
     }
 

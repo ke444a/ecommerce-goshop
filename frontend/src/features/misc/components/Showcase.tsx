@@ -1,4 +1,5 @@
 import Navbar from "../../../components/Elements/Navbar";
+import { Link } from "react-router-dom";
 
 const Showcase = () => {
     return (
@@ -16,9 +17,9 @@ const Showcase = () => {
               standing out. But the time is now to be okay to be the greatest
               you.
                         </p>
-                        <button className="font-semibold text-sm bg-white bg-opacity-20 transition hover:bg-opacity-40 rounded-md py-2 px-4 border-[1px] border-white border-opacity-[45%]">
+                        <Link to="/products/shop" className="font-semibold text-sm bg-white bg-opacity-20 transition hover:bg-opacity-40 rounded-md py-2 px-4 border-[1px] border-white border-opacity-[45%]">
               Explore
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

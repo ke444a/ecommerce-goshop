@@ -1,9 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import prisma from "../config/prisma-client";
-import { ImageRequest } from "../middleware/imageUploadMiddleware";
 import { auth } from "../config/firebase";
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email } = req.body;
         if (!email) {
@@ -16,7 +15,7 @@ export const createUser = async (req: Request, res: Response) => {
             }
         });
         if (existingUser) {
-            throw new Error("User with given email already exists");
+            return res.status(400).json({ message: "User with given email already exists" });
         }
     
         const newUser = await prisma.user.create({
@@ -25,11 +24,11 @@ export const createUser = async (req: Request, res: Response) => {
     
         res.status(201).json(newUser);
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to create the user", error });
     }
 };
 
-export const updateUser = async (req: ImageRequest, res: Response) => {
+export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.params.id;
         const foundUser = await prisma.user.findUnique({
@@ -39,7 +38,7 @@ export const updateUser = async (req: ImageRequest, res: Response) => {
         });
     
         if (!foundUser) {
-            throw new Error("User not found");
+            return res.status(404).json({ message: "User not found" });
         }
     
         if (req.body.email && req.body.email !== foundUser.email) {
@@ -72,11 +71,11 @@ export const updateUser = async (req: ImageRequest, res: Response) => {
 
         res.status(200).json({ user: updatedUser, token });
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to update the user", error });
     }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const foundUser = await prisma.user.delete({
             where: {
@@ -84,28 +83,24 @@ export const deleteUser = async (req: Request, res: Response) => {
             }
         });
         if (!foundUser) {
-            throw new Error("User not found");
+            return res.status(404).json({ message: "User not found" });
         }
     
         res.status(200).json({ message: "User deleted" });
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to delete the user", error });
     }
 };
 
 export const getUserByFirebaseId = async (req: Request, res: Response) => {
-    try {
-        const foundUser = await prisma.user.findUnique({
-            where: {
-                firebaseId: req.params.id
-            }
-        });
-        if (!foundUser) {
-            throw new Error("User not found");
+    const foundUser = await prisma.user.findUnique({
+        where: {
+            firebaseId: req.params.id
         }
-    
-        res.status(200).json(foundUser);
-    } catch (error) {
-        res.status(404).json(error);
+    });
+    if (!foundUser) {
+        return res.status(404).json("User not found");
     }
+    
+    res.status(200).json(foundUser);
 };

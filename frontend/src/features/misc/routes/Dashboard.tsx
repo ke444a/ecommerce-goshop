@@ -47,6 +47,7 @@ export const Dashboard = () => {
                                 : "text-secondary"
                         }`}
                         onClick={() => setSelectedTab(2)}
+                        data-cy="profile-btn"
                     >
                         <BiSolidUser className="inline-block mr-1" />
                         <span>Profile</span>

@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import { useRegisterWithGoogleMutation } from "../api/registerWithGoogle";
+import { Spinner } from "../../../components/Elements/Spinner";
+import { useState } from "react";
 
 const loginValidationSchema = yup.object({
     email: yup
@@ -27,14 +29,17 @@ const LoginForm = () => {
     });
 
     const { signIn, signInWithGoogle } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
     const handleLogin = async (data: LoginForm) => {
         try {
+            setIsLoading(true);
             const email = data.email.trim();
             const password = data.password;
             const userCredentials = await signIn(email, password);
             if (userCredentials) {
                 navigate("/");
             }
+            setIsLoading(false);
         } catch (error) {
             toast.error("Invalid email or password");
         }
@@ -57,7 +62,8 @@ const LoginForm = () => {
     
     return (
         <>
-            <form className="w-full" onSubmit={handleSubmit(handleLogin)}>
+            <form className="w-full relative" onSubmit={handleSubmit(handleLogin)}>
+                {isLoading && <Spinner />}
                 <div className="flex flex-col mb-4">
                     <label htmlFor="email" className="text-secondary">
             Email Address

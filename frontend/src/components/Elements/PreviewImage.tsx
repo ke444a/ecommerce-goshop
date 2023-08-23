@@ -34,8 +34,9 @@ const PreviewImage = (props: Props) => {
         <div className={`shrink-0  ${props.context === "user" ? "w-36 h-36 sm:w-52 sm:h-52" : "w-[350px] h-[430px]"}`}>
             {!props.preview ? (
                 <>
-                    <label className={`${props.context === "user" ? "rounded-full" : "rounded-md"} cursor-pointer w-full h-full flex items-center justify-center px-4 py-3 border-gray-200 border focus:border-primary focus:outline-none text-sm hover:bg-gray-100 transition-colors`}>
+                    <label className={`${props.context === "user" ? "rounded-full" : "rounded-md"} cursor-pointer w-full h-full flex items-center flex-col justify-center px-4 py-3 border-gray-200 border focus:border-primary focus:outline-none text-sm hover:bg-gray-100 transition-colors`}>
                         <MdAddAPhoto className="inline-block w-10 h-10 text-secondary" />
+                        <p className="text-red-500 font-semibold mt-2">{props.error}</p>
                         <Controller
                             name="image"
                             control={props.control}
@@ -51,7 +52,6 @@ const PreviewImage = (props: Props) => {
                             )}
                         />
                     </label>
-                    <p className="text-red-500 font-semibold mt-1">{props.error}</p>
                 </>
             ) : (
                 <img
