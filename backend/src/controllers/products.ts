@@ -1,45 +1,36 @@
 import stripe from "../config/stripe";
-import { Request, Response } from "express";
-import { ImageRequest } from "../middleware/imageUploadMiddleware";
+import { NextFunction, Request, Response } from "express";
 import prisma from "../config/prisma-client";
 
 export const getAllProducts = async (req: Request, res: Response) => {
-    try {
-        const products = await prisma.product.findMany({
-            orderBy: {
-                createdAt: "desc"
-            }
-        });
-
-        if (!products) {
-            throw new Error("Product not found");
+    const products = await prisma.product.findMany({
+        orderBy: {
+            createdAt: "desc"
         }
+    });
 
-        res.status(200).json(products);
-    } catch(error) {
-        res.status(404).json(error);
+    if (!products) {
+        return res.status(404).json({ message: "Products not found" });
     }
+
+    res.status(200).json(products);
 };
 
 export const getProductById = async (req: Request, res: Response) => {
-    try {
-        const product = await prisma.product.findUnique({
-            where: {
-                id: req.params.id
-            }
-        });
-
-        if (!product) {
-            throw new Error("Product not found");
+    const product = await prisma.product.findUnique({
+        where: {
+            id: req.params.id
         }
+    });
 
-        res.status(200).json(product);
-    } catch(error) {
-        res.status(404).json(error);
+    if (!product) {
+        return res.status(404).json({ message: "Product not found" });
     }
+
+    res.status(200).json(product);
 };
 
-export const searchForProducts = async (req: Request, res: Response) => {
+export const searchForProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let { searchQuery } = req.body;
         if (searchQuery.length > 0 && searchQuery.indexOf(" ") === -1) {
@@ -63,38 +54,33 @@ export const searchForProducts = async (req: Request, res: Response) => {
             }
         });
         if (!products) {
-            throw new Error("Product not found");
-        }
-    
-        res.status(200).json(products);
-    } catch (error) {
-        console.log(error);
-        res.status(404).json(error);
-    }
-};
-
-
-export const getProductsByCategory = async (req: Request, res: Response) => {
-    try {
-        const products = await prisma.product.findMany({
-            where: {
-                categoryId: Number(req.params.id)
-            },
-            orderBy: {
-                createdAt: "desc"
-            }
-        });
-        if (!products) {
             return res.status(404).json({ message: "Products not found" });
         }
     
         res.status(200).json(products);
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to search for products", error });
     }
 };
 
-export const createProduct = async (req: ImageRequest, res: Response) => {
+
+export const getProductsByCategory = async (req: Request, res: Response) => {
+    const products = await prisma.product.findMany({
+        where: {
+            categoryId: Number(req.params.id)
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    });
+    if (!products) {
+        return res.status(404).json({ message: "Products not found" });
+    }
+    
+    res.status(200).json(products);
+};
+
+export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const image = req.image || "";
         const stripeProduct = await stripe.products.create({
@@ -131,12 +117,11 @@ export const createProduct = async (req: ImageRequest, res: Response) => {
     
         res.status(201).json(newProduct);
     } catch (error) {
-        res.status(400).json(error);
-        console.log(error);
+        next({ message: "Unable to create the product with given details", error });
     }
 };
 
-export const updateProduct = async (req: ImageRequest, res: Response) => {
+export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const foundProduct = await prisma.product.findFirst({
             where: {
@@ -145,7 +130,7 @@ export const updateProduct = async (req: ImageRequest, res: Response) => {
         });
 
         if (!foundProduct) {
-            throw new Error("Product not found");
+            return res.status(404).json({ message: "Product not found" });
         }
     
         await stripe.products.update(foundProduct.id, {
@@ -161,18 +146,6 @@ export const updateProduct = async (req: ImageRequest, res: Response) => {
                 unit_amount: (req.body?.price || foundProduct.price) * 100
             },
             images: [image]
-        });
-
-        const updatedCategory = await prisma.category.upsert({
-            where: {
-                name: req.body.category
-            },
-            update: {
-                name: req.body.category
-            },
-            create: {
-                name: req.body.category
-            }
         });
     
         const updatedProduct = await prisma.product.update({
@@ -202,11 +175,11 @@ export const updateProduct = async (req: ImageRequest, res: Response) => {
     
         res.status(200).json(updatedProduct);
     } catch (error) {
-        console.log(error);
+        next({ message: "Unable to update the product with given details", error });
     }    
 };
 
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const deletedProduct = await prisma.product.delete({
             where: {
@@ -215,7 +188,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
         });
 
         if (!deletedProduct) {
-            throw new Error("Product not found");
+            return res.status(404).json({ message: "Product not found" });
         }
 
         await prisma.category.deleteMany({
@@ -232,6 +205,6 @@ export const deleteProduct = async (req: Request, res: Response) => {
     
         res.status(200).json(deletedProduct);
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to delete the product", error });
     }
 };

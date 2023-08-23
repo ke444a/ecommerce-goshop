@@ -1,10 +1,18 @@
 import { CaterogyBox } from "../components/CaterogyBox";
 import Showcase from "../components/Showcase";
 import Footer from "../components/Footer";
-import electronicsImg from "../../../assets/images/category-electronics.jpeg";
-import basicStarterPackImg from "../../../assets/images/basic-starter.jpeg";
+import category1 from "../../../assets/images/Home/category1.jpg";
+import category2 from "../../../assets/images/Home/category2.png";
+import category3 from "../../../assets/images/Home/category3.png";
+import category4 from "../../../assets/images/Home/category4.png";
+import category5 from "../../../assets/images/Home/category5.png";
+import starter1 from "../../../assets/images/Home/starter1.jpeg";
+import starter2 from "../../../assets/images/Home/starter2.jpeg";
+import starter3 from "../../../assets/images/Home/starter3.jpeg";
+import starter4 from "../../../assets/images/Home/starter4.jpeg";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { HiGift } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
     return (
@@ -17,26 +25,25 @@ export const Home = () => {
                         <h3 className="font-semibold text-xl md:text-3xl mr-5 xs:mr-0">
                 Shop by Category
                         </h3>
-                        <div className="hidden xs:flex flex-wrap font-medium hover:underline items-center text-base">
-                            <p className="mr-1 sm:mr-2 w-fit">
+                        <div className="hidden cursor-pointer xs:flex flex-wrap font-medium hover:underline items-center text-base">
+                            <Link to="/products/shop" className="block mr-1 sm:mr-2 w-fit">
                   Browse all categories
-                            </p>
+                            </Link>
                             <FaArrowRightLong />
                         </div>
                     </div>
                     <div className="scrollbar-hidden flex flex-nowrap overflow-x-auto overflow-y-hidden overscroll-x-contain py-4 space-x-8">
-                        <CaterogyBox title="Electronics" img={electronicsImg} />
-                        <CaterogyBox title="Electronics" img={electronicsImg} />
-                        <CaterogyBox title="Electronics" img={electronicsImg} />
-                        <CaterogyBox title="Electronics" img={electronicsImg} />
-                        <CaterogyBox title="Electronics" img={electronicsImg} />
-                        <CaterogyBox title="Electronics" img={electronicsImg} />
+                        <CaterogyBox title="Watches" img={category1} />
+                        <CaterogyBox title="Aromatherapy" img={category2} />
+                        <CaterogyBox title="Decor" img={category3} />
+                        <CaterogyBox title="Furniture" img={category4} />
+                        <CaterogyBox title="Chairs" img={category5} />
                     </div>
                 </div>
                 {/* End Homepage Categories Section */}
 
                 {/* Homepage New Arrivals Section */}
-                <div className="mb-24 bg-[url('src/assets/images/new-arrivals-section.png')] bg-cover bg-center bg-no-repeat text-center text-white rounded-lg">
+                <div className="mb-24 bg-[url('src/assets/images/Home/new-arrivals-section.png')] bg-cover bg-center bg-no-repeat text-center text-white rounded-lg">
                     <div className="bg-black-cover w-full h-full px-8 py-20 md:px-16 lg:px-24 rounded-lg">
                         <h2 className="font-bold text-4xl sm:text-5xl mb-8">
                 New arrivals
@@ -47,9 +54,9 @@ export const Home = () => {
                 standing out. But the time is now to be okay to be the greatest
                 you.
                         </p>
-                        <button className="font-semibold text-sm bg-white bg-opacity-20 transition hover:bg-opacity-40 rounded-md py-2 px-4 border-[1px] border-white border-opacity-[45%]">
+                        <Link to="/products/shop" className="font-semibold text-sm bg-white bg-opacity-20 transition hover:bg-opacity-40 rounded-md py-2 px-4 border-[1px] border-white border-opacity-[45%]">
                 Explore
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 {/* End Homepage New Arrivals Section */}
@@ -115,26 +122,26 @@ export const Home = () => {
                     <div className="grid grid-cols-2 gap-3 sm:gap-4 h-fit">
                         <img
                             className="rounded-xl object-cover w-full h-[150px] xs:h-[200px] md:h-[250px] lg:h-[300px]"
-                            src={basicStarterPackImg}
+                            src={starter1}
                         />
                         <img
                             className="rounded-xl object-cover w-full h-[150px] xs:h-[200px] md:h-[250px] lg:h-[300px]"
-                            src={basicStarterPackImg}
+                            src={starter2}
                         />
                         <img
                             className="rounded-xl object-cover w-full h-[150px] xs:h-[200px] md:h-[250px] lg:h-[300px]"
-                            src={basicStarterPackImg}
+                            src={starter3}
                         />
                         <img
                             className="rounded-xl object-cover w-full h-[150px] xs:h-[200px] md:h-[250px] lg:h-[300px]"
-                            src={basicStarterPackImg}
+                            src={starter4}
                         />
                     </div>
                 </div>
                 {/* End Homepage Basic Starter Section */}
 
                 {/* Homepage Discounts Section */}
-                <div className="border-[1px] border-[#979797] rounded-xl bg-[url('src/assets/images/discounts-section.png')] bg-cover bg-no-repeat bg-center px-4 xs:px-10 md:px-20 pt-20 sm:pt-44 pb-9 mb-24">
+                <div className="border-[1px] border-[#979797] rounded-xl bg-[url('src/assets/images/Home/discounts-section.png')] bg-cover bg-no-repeat bg-center px-4 xs:px-10 md:px-20 pt-20 sm:pt-44 pb-9 mb-24">
                     <div className="py-7 px-4 xs:px-10 md:px-16 text-center bg-white bg-opacity-[65%] shadow-blur backdrop-blur-[13.6px] rounded-md border-white border-[1px] flex flex-col items-center">
                         <h2 className="font-bold text-4xl sm:text-5xl mb-8">
                 Exclusive discounts for members
@@ -145,10 +152,10 @@ export const Home = () => {
                 standing out. But the time is now to be okay to be the greatest
                 you.
                         </p>
-                        <button className="mx-auto flex items-center font-semibold text-sm bg-dark text-white transition hover:bg-opacity-90 rounded-md py-3 px-6 border-[1px] border-white border-opacity-[45%]">
+                        <Link to="/products/shop" className="mx-auto flex items-center font-semibold text-sm bg-dark text-white transition hover:bg-opacity-90 rounded-md py-3 px-6 border-[1px] border-white border-opacity-[45%]">
                             <HiGift className="mr-2 w-6 h-6" />
                 Get your code
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 {/* End Homepage Discounts Section */}

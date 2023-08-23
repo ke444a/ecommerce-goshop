@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { auth } from "../config/firebase";
 import prisma from "../config/prisma-client";
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userFirebase = await auth.createUser({
             email: req.body.email,
@@ -25,11 +25,11 @@ export const register = async (req: Request, res: Response) => {
     
         res.status(200).json({ token });
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to sign up the user with given credentials", error });
     }
 };
 
-export const registerWithGoogle = async (req: Request, res: Response) => {
+export const registerWithGoogle = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = await prisma.user.create({
             data: {
@@ -41,6 +41,6 @@ export const registerWithGoogle = async (req: Request, res: Response) => {
                 
         res.status(201).json(user);
     } catch (error) {
-        res.status(400).json(error);
+        next({ message: "Unable to sign up the user via Google", error });
     }
 };

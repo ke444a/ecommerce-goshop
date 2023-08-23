@@ -38,7 +38,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children } : Props) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [token, setToken] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isAdmin, setIsAdmin] = useState<boolean>();
     
     const { mutateAsync: register } = useRegisterMutation();
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children } : Props) => {
             setCurrentUser(null);
             setToken("");
         }
-        setLoading(false);
+        setIsLoading(false);
     };
 
     const signIn = async (email: string, password: string) => {
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children } : Props) => {
 
     return (
         <AuthContext.Provider value={value}>
-            { !loading && children }
+            { !isLoading && children }
         </AuthContext.Provider>
     );
 };

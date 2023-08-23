@@ -1,10 +1,9 @@
 import { randProduct } from "@ngneat/falso";
-import { PrismaClient } from "@prisma/client";
-import Stripe from "stripe";
+import prisma from "./config/prisma-client";
 import dotenv from "dotenv";
-
 dotenv.config({ path: "../.env" });
-const prisma = new PrismaClient();
+import Stripe from "stripe";
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
     apiVersion: "2022-11-15",
     typescript: true

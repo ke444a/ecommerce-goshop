@@ -2,12 +2,17 @@ import { FaCircleCheck, FaArrowRightLong } from "react-icons/fa6";
 import { Link, useSearchParams } from "react-router-dom";
 import { useGetCheckoutSessionQuery } from "../../orders";
 import { useAuth } from "../../../context/AuthContext";
+import { Spinner } from "../../../components/Elements/Spinner";
 
 export const CheckoutSuccess = () => {
     const [searchParams] = useSearchParams();
     const checkoutSessionId = searchParams.get("id") || "";
     const { token } = useAuth();
     const { data: sessionData, isLoading, isSuccess} = useGetCheckoutSessionQuery(checkoutSessionId, token);
+
+    if (isLoading) {
+        return <Spinner />;
+    }
     
     if (!isSuccess) {
         return null;

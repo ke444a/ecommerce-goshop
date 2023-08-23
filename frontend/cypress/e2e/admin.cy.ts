@@ -11,7 +11,7 @@ describe("Admin", () => {
 
     it("Admin: create a new product", () => {
         cy.visit("/dashboard");
-        cy.get("#create-produt").click();
+        cy.get("#create-product").click();
         cy.get(adminSel.productNameField).type("MacBook Pro");
         cy.get(adminSel.productDescriptionField).type("This is a MacBook Pro");
         cy.get(adminSel.productPriceField).type("1000");

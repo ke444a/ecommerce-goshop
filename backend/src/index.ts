@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth";
 import categoryRoutes from "./routes/category";
 import { webhook } from "./controllers/webhook";
 import path from "path";
+import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,12 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 app.post("/webhook", express.raw({type: "application/json"}), webhook);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
