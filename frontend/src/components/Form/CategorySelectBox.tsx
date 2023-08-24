@@ -1,47 +1,6 @@
 import { FiChevronDown } from "react-icons/fi";
 import { useGetAllCategoriesQuery } from "../../features/category";
 import { ChangeEvent } from "react";
-// import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-
-
-// const CategorySelectBox = () => {
-//     const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
-
-//     return (
-//         <div>
-//             <div className="flex justify-between items-center py-3 border-b-[1px] border-gray-300">
-//                 <h5 className="font-semibold text-xl">Category</h5>
-//                 {
-//                     isCategoryOpen ? 
-//                         <AiOutlineMinus className="cursor-pointer" onClick={() => setIsCategoryOpen(prevState => !prevState)} /> : <AiOutlinePlus className="cursor-pointer" onClick={() => setIsCategoryOpen(prevState => !prevState)} />
-//                 }
-//             </div>
-//             {isCategoryOpen && 
-//                 <div className="mt-2">
-//                     {featuresList.map((feature: string, index: number) => {
-//                         return (
-//                             <div key={index} className="flex items-center p-2">
-//                                 <input
-//                                     key={index}
-//                                     type="checkbox"
-//                                     value=""
-//                                     className="relative appearance-none rounded checked:bg-dark checked:text-white checked:before:content-['\2713'] checked:before:absolute checked:before:bottom-2.5 checked:before:translate-y-1/2 checked:before:-translate-x-1/2 checked:before:left-2.5 border-gray-300 border-[1px] h-5 w-5 mr-2.5"
-//                                 />
-//                                 <label
-//                                     className="text-lg text-secondary"
-//                                     key={index}
-//                                 >
-//                               Features
-//                                 </label>
-//                             </div>
-//                         );
-//                     })}
-//                 </div>
-//             }
-
-//         </div>
-//     );
-// };
 
 type Props = {
     selectedCategory?: number;

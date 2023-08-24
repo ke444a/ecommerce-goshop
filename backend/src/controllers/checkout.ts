@@ -31,7 +31,7 @@ export const getCheckoutItems = async (req: Request, res: Response, next: NextFu
 export const createCheckoutSession = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const session = await stripe.checkout.sessions.create({
-            success_url: "http://localhost:5173/checkout/success?id={CHECKOUT_SESSION_ID}",
+            success_url: (process.env.prod ? process.env.FRONTEND_URL : "http://localhost:5173") + "/checkout/success?id={CHECKOUT_SESSION_ID}",
             mode: "payment",
             line_items: req.body.lineItems,
             currency: "usd",

@@ -1,14 +1,14 @@
 import { useMemo } from "react";
-import { useGetAllOrdersDetailedQuery } from "../api/getAllOrdersDetailed";
+import { useGetAllOrdersQuery } from "../api/getAllOrders";
 import { useAuth } from "../../../context/AuthContext";
-import { useGetOrdersDetailedByUserQuery } from "../api/getOrdersDetailedByUser";
+import { useGetOrdersByUserQuery } from "../api/getOrdersByUser";
 import { OrderPreview } from "./OrderPreview";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 
 export const Orders = () => {
     const { token, isAdmin, currentUser } = useAuth();
-    const { data: ordersAdmin } = useGetAllOrdersDetailedQuery(token, isAdmin);
-    const { data: ordersUser } = useGetOrdersDetailedByUserQuery(currentUser?.uid || "", token, isAdmin);
+    const { data: ordersAdmin } = useGetAllOrdersQuery(token, isAdmin);
+    const { data: ordersUser } = useGetOrdersByUserQuery(currentUser?.uid || "", token, isAdmin);
 
     const ordersComponent = useMemo(() => {
         if(!ordersAdmin && !ordersUser) {

@@ -13,9 +13,6 @@ export const useGetCheckoutSessionQuery = (sessionId: string, token: string) => 
     return useQuery({
         queryKey: ["checkout", sessionId],
         queryFn: () => getCheckoutSession(sessionId, token),
-        onSuccess(data) {
-            console.log(data);
-        },
         select: (data) => {
             const date = new Date(data.created * 1000).toLocaleDateString("en-US", {
                 year: "numeric",
