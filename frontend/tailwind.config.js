@@ -25,8 +25,8 @@ export default {
             },
             backgroundImage: {
                 "custom-gradient": "linear-gradient(180deg, rgba(255, 255, 255, 0.08) 16.33%, rgba(0, 0, 0, 0.40) 100%)",
-                "auth": "url('/src/assets/images/Auth/auth-bg.jpeg')",
-                "showcase": "url('/src/assets/images/Home/showcase.png')"
+                "auth": "url('/src/assets/images/Auth/auth-bg.webp')",
+                "showcase": "url('/src/assets/images/Home/showcase.webp')"
             },
             backgroundColor: {
                 "black-cover": "rgba(10, 10, 10, 0.65)",
