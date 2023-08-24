@@ -119,8 +119,8 @@ const SignupForm = () => {
                         </p>
                     }
                 </div>
-                <div className="flex space-x-2 mb-3 grow-1">
-                    <div className="flex flex-col w-full">
+                <div className="flex flex-row mb-3">
+                    <div className="flex flex-col w-[48.5%] mr-[3%]">
                         <label htmlFor="firstName" className="text-secondary">
                 First Name
                         </label>
@@ -137,7 +137,7 @@ const SignupForm = () => {
                             </p>
                         }
                     </div>
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-[48.5%]">
                         <label htmlFor="lastName" className="text-secondary">
                 Last Name
                         </label>

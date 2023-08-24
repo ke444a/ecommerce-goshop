@@ -14,10 +14,10 @@ import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: "http://localhost:5173" 
+    origin: ["http://localhost:5173", process.env.FRONTEND_URL || ""]
 };
 
 app.use(cors(corsOptions));
@@ -40,6 +40,6 @@ app.use("/category", categoryRoutes);
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
+app.listen({ address: "0.0.0.0", port: PORT }, () => {
     console.log(`Server running on port: ${PORT}`);
 });

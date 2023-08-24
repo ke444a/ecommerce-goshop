@@ -10,6 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 });
 
 const seedProducts = async () => {
+    const categories = ["Electronics", "Accessories", "Home", "Food", "Furniture", "Books", "Gaming", "Fashion", "Sports", "Beauty"];
     await prisma.category.deleteMany();
     await prisma.product.deleteMany();
     const fakeProducts = randProduct({ length: 100 });
@@ -25,6 +26,7 @@ const seedProducts = async () => {
             images: [product.image]
         });
 
+        const category = categories[Math.floor(Math.random() * 10)];
         await prisma.product.create({
             data: {
                 id: stripeProduct.id,
@@ -37,10 +39,10 @@ const seedProducts = async () => {
                 category: {
                     connectOrCreate: {
                         where: {
-                            name: product.category
+                            name: category
                         },
                         create: {
-                            name: product.category
+                            name: category
                         }
                     }
                 }

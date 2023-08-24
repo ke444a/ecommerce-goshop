@@ -1,7 +1,7 @@
 import { api } from "../../../app/api";
 import { useQuery } from "@tanstack/react-query";
 
-const getSingleOrder = (orderId: string, token: string): Promise<IOrderDetailed[]> => {
+const getSingleOrder = (orderId: string, token: string): Promise<IOrder[]> => {
     return api.get(`/orders/${orderId}`, {
         headers: {
             "Authorization": `Bearer ${token}`

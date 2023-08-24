@@ -1,7 +1,7 @@
 import { api } from "../../../app/api";
 import { useQuery } from "@tanstack/react-query";
 
-const getAllOrdersDetailed = (token: string): Promise<IOrderDetailed[]> => {
+const getAllOrders = (token: string): Promise<IOrder[]> => {
     return api.get("/orders", {
         headers: {
             "Authorization": `Bearer ${token}`
@@ -9,10 +9,10 @@ const getAllOrdersDetailed = (token: string): Promise<IOrderDetailed[]> => {
     }).then(response => response.data);
 };
 
-export const useGetAllOrdersDetailedQuery = (token: string, isAdmin?: boolean) => {
+export const useGetAllOrdersQuery = (token: string, isAdmin?: boolean) => {
     return useQuery({
         queryKey: ["orders", "all", "detailed"],
-        queryFn: () => getAllOrdersDetailed(token),
+        queryFn: () => getAllOrders(token),
         enabled: isAdmin
     });
 };

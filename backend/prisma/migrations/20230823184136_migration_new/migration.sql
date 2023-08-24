@@ -24,6 +24,7 @@ CREATE TABLE `Product` (
 
     UNIQUE INDEX `Product_id_key`(`id`),
     UNIQUE INDEX `Product_priceId_key`(`priceId`),
+    FULLTEXT INDEX `Product_name_idx`(`name`),
     FULLTEXT INDEX `Product_name_description_idx`(`name`, `description`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -51,9 +52,3 @@ CREATE TABLE `Order` (
     UNIQUE INDEX `Order_sessionId_key`(`sessionId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- AddForeignKey
-ALTER TABLE `Product` ADD CONSTRAINT `Product_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Order` ADD CONSTRAINT `Order_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`firebaseId`) ON DELETE RESTRICT ON UPDATE CASCADE;

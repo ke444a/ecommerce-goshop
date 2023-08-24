@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { auth, googleProvider } from "../app/firebase";
-import { User, signInWithEmailAndPassword, UserCredential, signInWithCustomToken, signInWithRedirect, getRedirectResult, signInWithPopup } from "firebase/auth";
+import { User, signInWithEmailAndPassword, UserCredential, signInWithCustomToken, signInWithPopup } from "firebase/auth";
 import { useRegisterMutation } from "../features/auth";
 
 interface Props {
