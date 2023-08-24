@@ -1,15 +1,15 @@
 import { CaterogyBox } from "../components/CaterogyBox";
 import Showcase from "../components/Showcase";
 import Footer from "../components/Footer";
-import categoryElectronics from "../../../assets/images/Home/categoryElectronics.jpeg";
-import categoryFashion from "../../../assets/images/Home/categoryFashion.jpeg";
-import categoryHome from "../../../assets/images/Home/categoryHome.jpeg";
-import categoryFurniture from "../../../assets/images/Home/categoryFurniture.jpeg";
-import categoryBooks from "../../../assets/images/Home/categoryBooks.jpeg";
-import starter1 from "../../../assets/images/Home/starter1.jpeg";
-import starter2 from "../../../assets/images/Home/starter2.jpeg";
-import starter3 from "../../../assets/images/Home/starter3.jpeg";
-import starter4 from "../../../assets/images/Home/starter4.jpeg";
+import categoryElectronics from "../../../assets/images/Home/categoryElectronics.webp";
+import categoryFashion from "../../../assets/images/Home/categoryFashion.webp";
+import categoryHome from "../../../assets/images/Home/categoryHome.webp";
+import categoryFurniture from "../../../assets/images/Home/categoryFurniture.webp";
+import categoryBooks from "../../../assets/images/Home/categoryBooks.webp";
+import starter1 from "../../../assets/images/Home/starter1.webp";
+import starter2 from "../../../assets/images/Home/starter2.webp";
+import starter3 from "../../../assets/images/Home/starter3.webp";
+import starter4 from "../../../assets/images/Home/starter4.webp";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { HiGift } from "react-icons/hi";
 import { Link } from "react-router-dom";
@@ -43,7 +43,7 @@ export const Home = () => {
                 {/* End Homepage Categories Section */}
 
                 {/* Homepage New Arrivals Section */}
-                <div className="mb-24 bg-[url('src/assets/images/Home/new-arrivals-section.png')] bg-cover bg-center bg-no-repeat text-center text-white rounded-lg">
+                <div className="mb-24 bg-[url('src/assets/images/Home/new-arrivals-section.webp')] bg-cover bg-center bg-no-repeat text-center text-white rounded-lg">
                     <div className="bg-black-cover w-full h-full px-8 py-20 md:px-16 lg:px-24 rounded-lg">
                         <h2 className="font-bold text-4xl sm:text-5xl mb-8">
                 New arrivals
@@ -141,7 +141,7 @@ export const Home = () => {
                 {/* End Homepage Basic Starter Section */}
 
                 {/* Homepage Discounts Section */}
-                <div className="border-[1px] border-[#979797] rounded-xl bg-[url('src/assets/images/Home/discounts-section.png')] bg-cover bg-no-repeat bg-center px-4 xs:px-10 md:px-20 pt-20 sm:pt-44 pb-9 mb-24">
+                <div className="border-[1px] border-[#979797] rounded-xl bg-[url('src/assets/images/Home/discounts-section.webp')] bg-cover bg-no-repeat bg-center px-4 xs:px-10 md:px-20 pt-20 sm:pt-44 pb-9 mb-24">
                     <div className="py-7 px-4 xs:px-10 md:px-16 text-center bg-white bg-opacity-[65%] shadow-blur backdrop-blur-[13.6px] rounded-md border-white border-[1px] flex flex-col items-center">
                         <h2 className="font-bold text-4xl sm:text-5xl mb-8">
                 Exclusive discounts for members
