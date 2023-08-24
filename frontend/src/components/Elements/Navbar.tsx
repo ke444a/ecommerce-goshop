@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import defaultAvatar from "../../assets/images/default-avatar.png";
+import defaultAvatar from "../../assets/images/default-avatar.webp";
 
 const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
