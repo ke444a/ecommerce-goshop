@@ -6,8 +6,6 @@ import { useUpdateUserMutation } from "../api/updateUser";
 import { convertToFormData } from "../../../utils/convertToFormData";
 import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
-import { toast } from "react-toastify";
-import { FirebaseError } from "firebase/app";
 import { Spinner } from "../../../components/Elements/Spinner";
 
 const fieldRequiredError = "This field is required.";

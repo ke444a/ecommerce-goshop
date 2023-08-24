@@ -1,11 +1,11 @@
 import { CaterogyBox } from "../components/CaterogyBox";
 import Showcase from "../components/Showcase";
 import Footer from "../components/Footer";
-import category1 from "../../../assets/images/Home/category1.jpg";
-import category2 from "../../../assets/images/Home/category2.png";
-import category3 from "../../../assets/images/Home/category3.png";
-import category4 from "../../../assets/images/Home/category4.png";
-import category5 from "../../../assets/images/Home/category5.png";
+import categoryElectronics from "../../../assets/images/Home/categoryElectronics.jpeg";
+import categoryFashion from "../../../assets/images/Home/categoryFashion.jpeg";
+import categoryHome from "../../../assets/images/Home/categoryHome.jpeg";
+import categoryFurniture from "../../../assets/images/Home/categoryFurniture.jpeg";
+import categoryBooks from "../../../assets/images/Home/categoryBooks.jpeg";
 import starter1 from "../../../assets/images/Home/starter1.jpeg";
 import starter2 from "../../../assets/images/Home/starter2.jpeg";
 import starter3 from "../../../assets/images/Home/starter3.jpeg";
@@ -33,11 +33,11 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="scrollbar-hidden flex flex-nowrap overflow-x-auto overflow-y-hidden overscroll-x-contain py-4 space-x-8">
-                        <CaterogyBox title="Watches" img={category1} />
-                        <CaterogyBox title="Aromatherapy" img={category2} />
-                        <CaterogyBox title="Decor" img={category3} />
-                        <CaterogyBox title="Furniture" img={category4} />
-                        <CaterogyBox title="Chairs" img={category5} />
+                        <CaterogyBox title="Electronics" img={categoryElectronics} />
+                        <CaterogyBox title="Fashion" img={categoryFashion} />
+                        <CaterogyBox title="Home" img={categoryHome} />
+                        <CaterogyBox title="Furniture" img={categoryFurniture} />
+                        <CaterogyBox title="Books" img={categoryBooks} />
                     </div>
                 </div>
                 {/* End Homepage Categories Section */}

@@ -14,6 +14,7 @@ import {
 } from "../favoritesSlice";
 import { FcCheckmark } from "react-icons/fc";
 import { RxCross1 } from "react-icons/rx";
+import { Spinner } from "../../../components/Elements/Spinner";
 
 const Product = () => {
     const { productId } = useParams();
@@ -48,6 +49,10 @@ const Product = () => {
         const newQuantity = Number(e.target.value);
         setProductQuantity(newQuantity);
     };
+
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <div className="container">
