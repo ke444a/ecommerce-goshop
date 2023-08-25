@@ -15,6 +15,7 @@ import {
 import { FcCheckmark } from "react-icons/fc";
 import { RxCross1 } from "react-icons/rx";
 import { Spinner } from "../../../components/Elements/Spinner";
+import { toast } from "react-toastify";
 
 const Product = () => {
     const { productId } = useParams();
@@ -36,6 +37,7 @@ const Product = () => {
 
     const handleAddToCart = () => {
         dispatch(addToCart({ product, quantity: productQuantity }));
+        toast.success("Product added to the cart");
     };
 
     const handleFavoriteChange = () => {
