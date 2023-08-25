@@ -9,7 +9,7 @@ primary_region = "lhr"
 [build]
 
 [deploy]
-
+  
 [env]
   FRONTEND_URL = "https://ecommerce-goshop.onrender.com"
   NODE_ENV = "prod"
