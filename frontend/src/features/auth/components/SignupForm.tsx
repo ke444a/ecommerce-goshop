@@ -34,17 +34,20 @@ const SignupForm = () => {
 
     const { signUp, signInWithGoogle } = useAuth();
     const handleRegister = async (data: SignupForm) => {
-        setIsLoading(true);
-        const credentials = {
-            email: data.email.trim(),
-            password: data.password,
-            fullName: `${data.firstName.trim()} ${data.lastName.trim()}`,
-            isAdmin: data.isAdmin
-        };
+        try {
+            setIsLoading(true);
+            const credentials = {
+                email: data.email.trim(),
+                password: data.password,
+                fullName: `${data.firstName.trim()} ${data.lastName.trim()}`,
+                isAdmin: data.isAdmin
+            };
         
-        await signUp(credentials);
-        navigate("/");
-        setIsLoading(false);
+            await signUp(credentials);
+            navigate("/");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleGoogleLogin = async () => {

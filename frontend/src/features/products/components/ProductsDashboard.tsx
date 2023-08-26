@@ -9,6 +9,7 @@ import { useGetProductsByCategoryQuery } from "../api/getProductsByCategory";
 import { sortProductsByPriceAscending, sortProductsByPriceDescending } from "../../../utils/sortProductsByDate";
 import { ProductPreview } from "./ProductPreview";
 import { AdminProductPreview } from "./AdminProductPreview";
+import { Spinner } from "../../../components/Elements/Spinner";
 
 type Props = {
     isAdmin?: boolean;
@@ -106,6 +107,10 @@ const ProductsGrid = (props: ProductsGridProps) => {
                 <ProductPreview key={product.id} {...product} />;
         });
     }, [allProductsQuery.data, filteredProductsQuery.data, props.searchResults, props.selectedCategory, props.sortOption]);
+
+    if (allProductsQuery.isLoading) {
+        return <Spinner />;
+    }
 
     if (!allProductsQuery.isSuccess) {
         return null;
