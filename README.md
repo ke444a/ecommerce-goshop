@@ -42,6 +42,22 @@ Firebase Authentication serves as the app's authentication mechanism, allowing G
 
 ## Demonstration
 ### [View the website](https://ecommerce-goshop.onrender.com)
+https://github.com/ke444a/ecommerce-goshop/assets/81090139/3dc1cb1f-b47d-4177-b805-d45688c319f2
+
+### Home page
+<img width="60%" height="50%" src="https://github.com/ke444a/ecommerce-goshop/assets/81090139/8c35717c-ca67-49f6-8a96-c02fc36e08f7">
+
+### Products
+<img width="60%" height="50%" src="https://github.com/ke444a/ecommerce-goshop/assets/81090139/c0cdd67a-a367-4d50-9255-2b10491d244b">
+
+### Cart
+<img width="60%" height="50%" src="https://github.com/ke444a/ecommerce-goshop/assets/81090139/1426e48e-4035-457d-87f2-502f60a82a24">
+
+### Orders
+<img width="60%" height="50%" src="https://github.com/ke444a/ecommerce-goshop/assets/81090139/8280a299-52b7-4a87-8910-e41a9d31988d">
+
+### Admin panel
+<img width="60%" height="50%" src="https://github.com/ke444a/ecommerce-goshop/assets/81090139/047396bd-56be-4b6d-8fe7-aced3a1a55b5">
 
 ## Technologies
 
