@@ -24,9 +24,11 @@ export default {
                 "custom": "0px 1px 2px 0px rgba(51, 65, 86, 0.08)"
             },
             backgroundImage: {
-                "custom-gradient": "linear-gradient(180deg, rgba(255, 255, 255, 0.08) 16.33%, rgba(0, 0, 0, 0.40) 100%)",
+                "customGradient": "linear-gradient(180deg, rgba(255, 255, 255, 0.08) 16.33%, rgba(0, 0, 0, 0.40) 100%)",
                 "auth": "url('/src/assets/images/Auth/auth-bg.webp')",
-                "showcase": "url('/src/assets/images/Home/showcase.webp')"
+                "showcase": "url('/src/assets/images/Home/showcase.webp')",
+                "newArrivals": "url('/src/assets/images/Home/new-arrivals-section.webp')",
+                "discounts": "url('/src/assets/images/Home/discounts-section.webp')"
             },
             backgroundColor: {
                 "black-cover": "rgba(10, 10, 10, 0.65)",

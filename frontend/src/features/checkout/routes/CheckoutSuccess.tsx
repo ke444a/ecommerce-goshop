@@ -27,7 +27,7 @@ export const CheckoutSuccess = () => {
             <h2 className="font-semibold text-4xl">
           ${(sessionData.amount_total / 100).toFixed(2)}
             </h2>
-            <hr className="my-12 bg-custom-gradient h-px w-full" />
+            <hr className="my-12 bg-customGradient h-px w-full" />
             <div className="w-full">
                 <div className="flex justify-between mb-6">
                     <h6 className="text-secondary text-lg">Payment Time</h6>
