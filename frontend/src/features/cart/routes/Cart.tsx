@@ -49,7 +49,7 @@ const Cart = () => {
                 <CartProductsList context="cart" />
                 { cartItems.length > 0 &&
                 <>
-                    <hr className="my-8 bg-custom-gradient h-px w-full block md:hidden" />
+                    <hr className="my-8 bg-customGradient h-px w-full block md:hidden" />
                     <CheckoutTotalPrice amount={cartTotalPrice}>
                         <>
                             <button
