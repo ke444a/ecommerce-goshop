@@ -39,9 +39,10 @@ const LoginForm = () => {
             if (userCredentials) {
                 navigate("/");
             }
-            setIsLoading(false);
         } catch (error) {
             toast.error("Invalid email or password");
+        } finally {
+            setIsLoading(false);
         }
     };
 
