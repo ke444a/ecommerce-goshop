@@ -18,8 +18,7 @@ const registerValidationSchema = yup.object({
         .oneOf([yup.ref("password")], "Passwords do not match")
         .required("Password confirmation is required"),
     firstName: yup.string().required("First name is required").trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets"),
-    lastName: yup.string().required("Last name is required").trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets"),
-    isAdmin: yup.boolean()
+    lastName: yup.string().required("Last name is required").trim().matches(/^[aA-zZ\s]+$/, "Name can only contain alphabets")
 });
 type SignupForm = yup.InferType<typeof registerValidationSchema>;
 
@@ -40,7 +39,7 @@ const SignupForm = () => {
                 email: data.email.trim(),
                 password: data.password,
                 fullName: `${data.firstName.trim()} ${data.lastName.trim()}`,
-                isAdmin: data.isAdmin
+                isAdmin: false
             };
         
             await signUp(credentials);
@@ -158,15 +157,6 @@ const SignupForm = () => {
                         }
                     </div>
                 </div>
-                <input
-                    {...register("isAdmin")}
-                    type="checkbox"
-                    id="isAdmin"
-                    className="mr-2"
-                />
-                <label htmlFor="isAdmin" className="text-secondary">
-            Signup as admin
-                </label>
                 <button className="w-full font-semibold text-sm bg-dark text-white transition hover:bg-opacity-90 rounded-xl py-3 px-4">
             Sign up
                 </button>
